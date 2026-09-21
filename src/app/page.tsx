@@ -1,69 +1,17 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, BookOpen, Clock3, Sparkles } from "lucide-react";
+import SearchBar from "@/components/search/SearchBar";
+import ArticleCard from "@/components/knowledge/ArticleCard";
+import CategoryCard from "@/components/knowledge/CategoryCard";
+import { mockArticles, mockCategories, recentlyAdded, frequentlyUsed } from "@/data";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+  const quickGuides = mockArticles.filter((article) => article.category === "quick-guides");
+  return <div className="space-y-12">
+    <section className="relative overflow-hidden rounded-2xl bg-[#173944] px-6 py-10 text-white md:px-12 md:py-14"><div className="absolute right-0 top-0 h-full w-1/3 bg-[radial-gradient(circle_at_center,#28778233,transparent_65%)]" /><div className="relative max-w-3xl"><div className="mb-5 flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#f1c75b]"><Sparkles size={15} /> Internal knowledge workspace</div><h1 className="text-3xl font-semibold tracking-tight md:text-5xl">Find the SAP process, guide, or solution you need.</h1><p className="mt-4 max-w-xl text-base leading-7 text-[#c6d8db]">MARY GRACE is a demonstration knowledge portal for ERP Support teams.</p><div className="mt-8 max-w-2xl"><SearchBar large /></div><div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-[#a9c2c6]"><span>Try:</span><Link href="/search?q=PR" className="hover:text-white">Create PR</Link><Link href="/search?q=profit%20center" className="hover:text-white">Profit Center</Link><Link href="/search?q=PID" className="hover:text-white">PID</Link><Link href="/search?q=approved%20PR" className="hover:text-white">Approved PR</Link></div></div></section>
+    <section><div className="mb-5 flex items-end justify-between"><div><p className="eyebrow">Explore the library</p><h2 className="section-title">Knowledge categories</h2></div><Link href="/knowledge" className="hidden items-center gap-2 text-sm font-semibold text-[#1e6870] hover:text-[#174e55] sm:flex">View all <ArrowRight size={16} /></Link></div><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{mockCategories.map((category) => <CategoryCard key={category.slug} category={category} />)}</div></section>
+    <section><div className="mb-5 flex items-end justify-between"><div><p className="eyebrow">Recently added</p><h2 className="section-title">Start with a guide</h2></div><Link href="/knowledge" className="flex items-center gap-2 text-sm font-semibold text-[#1e6870] hover:text-[#174e55]">Browse knowledge <ArrowRight size={16} /></Link></div><div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{recentlyAdded.map((article) => <ArticleCard key={article.id} article={article} />)}</div></section>
+    <section className="grid gap-8 lg:grid-cols-2"><div><div className="mb-5"><p className="eyebrow">Demo content</p><h2 className="section-title">Frequently used guides</h2></div><div className="divide-y divide-[#dbe2e7] rounded-xl border border-[#dbe2e7] bg-white">{frequentlyUsed.map((article) => <Link key={article.id} href={`/articles/${article.slug}`} className="flex items-center justify-between px-5 py-4 transition hover:bg-[#f7faf9]"><span><span className="block text-sm font-semibold">{article.title}</span><span className="mt-1 block text-xs capitalize text-[#71818a]">{article.category.replace("-", " ")} · {article.contentType}</span></span><ArrowRight size={16} className="text-[#9aaab1]" /></Link>)}</div></div><div><div className="mb-5"><p className="eyebrow">Fast reference</p><h2 className="section-title">Quick guides</h2></div><div className="grid gap-3 sm:grid-cols-2">{quickGuides.map((article) => <Link key={article.id} href={`/articles/${article.slug}`} className="flex items-center gap-3 rounded-xl border border-[#dbe2e7] bg-white p-4 text-sm font-semibold transition hover:border-[#8bbec0] hover:shadow-sm"><span className="grid size-9 place-items-center rounded-lg bg-[#fff4cf] text-[#9a7818]"><BookOpen size={17} /></span>{article.title}</Link>)}</div></div></section>
+    <div className="flex items-center gap-3 rounded-xl border border-[#dbe2e7] bg-white px-5 py-4 text-sm text-[#687981]"><Clock3 size={17} className="text-[#1e6870]" /><span>Prototype content last refreshed September 21, 2026. All articles are samples for interface testing.</span></div>
+  </div>;
 }

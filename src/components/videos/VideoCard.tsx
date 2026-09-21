@@ -1,0 +1,5 @@
+"use client";
+import Link from "next/link";
+import { Play, Video as VideoIcon } from "lucide-react";
+import type { DemoVideo } from "@/types/knowledge";
+export default function VideoCard({ video }: { video: DemoVideo }) { return <Link href={`/videos/${video.id}`} className="group block overflow-hidden rounded-xl border border-[#dbe2e7] bg-white transition hover:border-[#8bbec0] hover:shadow-md"><div className="flex aspect-[16/8] items-center justify-center bg-[#173944] text-[#b9d4d2]"><div className="grid size-12 place-items-center rounded-full border border-[#b9d4d2]/50 transition group-hover:scale-105"><Play size={20} fill="currentColor" /></div></div><div className="p-5"><div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.12em] text-[#1e6870]"><span className="flex items-center gap-1"><VideoIcon size={13} />Demo video</span><span>{video.duration}</span></div><h3 className="mt-3 font-semibold">{video.title}</h3><p className="mt-2 text-sm leading-6 text-[#687981]">{video.description}</p></div></Link>; }

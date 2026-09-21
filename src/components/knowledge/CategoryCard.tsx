@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { AlertTriangle, Boxes, Database, Package, PlayCircle, Wallet, Zap, ArrowUpRight } from "lucide-react";
+import type { KnowledgeCategory } from "@/types/knowledge";
+
+const icons = { package: Package, boxes: Boxes, database: Database, wallet: Wallet, alert: AlertTriangle, zap: Zap, play: PlayCircle };
+export default function CategoryCard({ category }: { category: KnowledgeCategory }) { const Icon = icons[category.icon as keyof typeof icons]; const href = category.slug === "troubleshooting" ? "/troubleshooting" : category.slug === "videos" ? "/videos" : `/knowledge/${category.slug}`; return <Link href={href} className="group rounded-xl border border-[#dbe2e7] bg-white p-5 transition hover:-translate-y-0.5 hover:border-[#8bbec0] hover:shadow-md"><div className="mb-5 flex items-center justify-between"><span className="grid size-10 place-items-center rounded-lg bg-[#e8f3f1] text-[#1e6870]"><Icon size={20} /></span><ArrowUpRight size={17} className="text-[#a5b2b7] transition group-hover:text-[#1e6870]" /></div><h3 className="font-semibold text-[#16212b]">{category.name}</h3><p className="mt-2 text-sm leading-6 text-[#687981]">{category.description}</p></Link>; }

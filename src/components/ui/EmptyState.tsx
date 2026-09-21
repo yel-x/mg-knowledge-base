@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function EmptyState({ title, description, href = "/" }: { title: string; description: string; href?: string }) { return <div className="rounded-xl border border-dashed border-[#cbd7dc] bg-white px-6 py-14 text-center"><h2 className="text-lg font-semibold">{title}</h2><p className="mx-auto mt-2 max-w-md text-sm leading-6 text-[#687981]">{description}</p><Link href={href} className="mt-5 inline-flex rounded-lg bg-[#1e6870] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#17555c]">Back to Knowledge Base</Link></div>; }
